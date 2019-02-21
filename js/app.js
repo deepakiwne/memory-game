@@ -25,12 +25,14 @@ function shuffle(array) {
     return array;
 }
 
-let cardsList = document.querySelectorAll('.card');
-cardsList.forEach(function(card) {
-	card.addEventListener('click', function () {
-		console.log('The card was clicked', card);
-	});
-});
+// adding event listerner to deck for click functionality
+function respondToTheClick(evt) {
+    console.log('A card was clicked: ', evt.target);
+}
+
+let deck = document.querySelector('.deck');
+deck.addEventListener('click', respondToTheClick);
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
