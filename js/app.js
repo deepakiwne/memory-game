@@ -28,10 +28,24 @@ function shuffle(array) {
 // adding event listerner to deck for click functionality
 function respondToTheClick(evt) {
     console.log('A card was clicked: ', evt.target);
+    //now changing css
+    let card = evt.target;
+    card.classList.add('open','show');
 }
 
 let deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
