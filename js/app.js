@@ -25,27 +25,57 @@ function shuffle(array) {
     return array;
 }
 
+
+let turnedOverCards = []
+
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
 // adding event listerner to deck for click functionality
-function respondToTheClick(evt) {
+async function respondToTheClick(evt) {
     console.log('A card was clicked: ', evt.target);
+
     //now changing css
     let card = evt.target;
     card.classList.add('open','show');
+
+    //await sleep(1000);
+
+    // we should also check whether 2 cards matching
+    turnedOverCards.push(card);
+
+    console.log (turnedOverCards);
+
+    // after 2 cards lets compare
+    if (turnedOverCards.length === 2){
+
+        // opened two cards. Lets check if match found and take appropriate action
+
+        if(checkMatching()){
+            turnedOverCards.forEach(function(c){
+                c.classList.add('match');
+            }); 
+        } else {
+            turnedOverCards.forEach(function(c){
+                c.classList.remove('open', 'show');
+            }); 
+        }
+
+        // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
+        turnedOverCards = [];
+    }
+
 }
 
 let deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
 
+function checkMatching(){
+    return true;
+} 
 
-
-
-
-
-
-
-
-
-
+shuffle();
 
 
 /*
