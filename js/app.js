@@ -57,9 +57,9 @@ function flip(card){
 
 let turnedOverCards = []
 
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // adding event listerner to deck for click functionality
 async function respondToTheClick(evt) {
@@ -69,7 +69,7 @@ async function respondToTheClick(evt) {
     let card = evt.target;
     card.classList.add('open','show');
 
-    //await sleep(1000);
+    await sleep(1000);
 
     // we should also check whether 2 cards matching
     turnedOverCards.push(card);
@@ -101,10 +101,22 @@ let deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
 
 function checkMatching(){
-    return false;
-} 
+    let first = turnedOverCards[0];
+    let second = turnedOverCards[1];
 
-shuffle();
+    let firstArray = first.firstChild.classList;
+    let secondArray = second.firstChild.classList;
+    console.log(firstArray, secondArray);
+
+    if(firstArray[0] == secondArray[0] && firstArray[1] == secondArray[1]){
+        console.log('match found');
+        return true;
+    } else {
+        console.log('no match');
+        return false;
+    }
+
+}
 
 
 /*
