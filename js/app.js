@@ -94,6 +94,10 @@ async function respondToTheClick(evt) {
 
         // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
         turnedOverCards = [];
+        gameStatus.moveCounter += 1;
+        //update html
+        let move = document.querySelector('.moves');
+        move.innerHTML = gameStatus.moveCounter;
     }
 
     // check if game is over
