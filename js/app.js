@@ -141,6 +141,33 @@ function checkGame(){
     }
 }
 
+// reser  functionality
+
+let restart = document.querySelector('.restart');
+restart.addEventListener('click', restartGame);
+
+function restartGame(){
+    
+    let cards = document.querySelectorAll('.card');
+    console.log(cards);
+    cards.forEach(function(c){
+        c.classList.remove('open');
+        c.classList.remove('show');
+        c.classList.remove('match');
+    });
+
+    gameStatus = {
+    'matchedCardsCount' : 0,
+    'moveCounter'       : 0,
+    'timer'             : 0,
+    'starRating'        : 3
+ }
+}
+
+
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
