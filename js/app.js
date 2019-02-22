@@ -25,6 +25,31 @@ function shuffle(array) {
     return array;
 }
 
+// 1. Start by building a grid of cards.
+
+let cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
+             'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
+
+function generateCard(card){
+    return `<li class="card"><i class="fa ${card}"></i></li>`;
+}
+
+function addCardToDeck() {
+  let deck = document.querySelector('.deck');
+  let cardInDeck = shuffle(cards).map(function(card){
+            return generateCard(card);
+
+  });
+
+  deck.innerHTML = cardInDeck.join('');
+
+}
+
+addCardToDeck();
+
+
+
+
 
 let turnedOverCards = []
 
