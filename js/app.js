@@ -48,7 +48,11 @@ function addCardToDeck() {
 addCardToDeck();
 
 
-
+// toggle cards
+function flip(card){
+    card.classList.toggle('open');
+    card.classList.toggle('show');
+}
 
 
 let turnedOverCards = []
@@ -83,7 +87,7 @@ async function respondToTheClick(evt) {
             }); 
         } else {
             turnedOverCards.forEach(function(c){
-                c.classList.remove('open', 'show');
+                flip(c);
             }); 
         }
 
@@ -97,7 +101,7 @@ let deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
 
 function checkMatching(){
-    return true;
+    return false;
 } 
 
 shuffle();
