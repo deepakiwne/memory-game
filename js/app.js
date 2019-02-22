@@ -84,6 +84,7 @@ async function respondToTheClick(evt) {
         if(checkMatching()){
             turnedOverCards.forEach(function(c){
                 c.classList.add('match');
+                gameStatus.matchedCardsCount += 1;
             }); 
         } else {
             turnedOverCards.forEach(function(c){
@@ -94,6 +95,9 @@ async function respondToTheClick(evt) {
         // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
         turnedOverCards = [];
     }
+
+    // check if game is over
+    checkGame();
 
 }
 
@@ -115,7 +119,22 @@ function checkMatching(){
         console.log('no match');
         return false;
     }
+}
 
+ let gameStatus = {
+    'matchedCardsCount' : 0,
+    'moveCounter'       : 0,
+    'timer'             : 0,
+    'starRating'        : 3
+ };
+
+// message after game completion
+
+function checkGame(){
+    console.log(gameStatus);
+    if (gameStatus.matchedCardsCount === 16){
+        alert("Game Complete!");
+    }
 }
 
 
