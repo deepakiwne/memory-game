@@ -84,23 +84,24 @@
         </ul>
 
 
-	    <button type="button" class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
+	    <!-- <button type="button" class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal">Launch demo modal</button> -->
 
     	<div class="modal" tabindex="-1" role="dialog" id="myModal">
   			<div class="modal-dialog" role="document">
     			<div class="modal-content">
       				<div class="modal-header">
-        				<h5 class="modal-title">Modal title</h5>
-        				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           					<span aria-hidden="true">&times;</span>
         				</button>
      				</div>
       				<div class="modal-body">
-        				<p>Modal body text goes here.</p>
+      					<img class="rounded mx-auto d-block" src="img/tick-inside-a-circle.svg" alt="tick inside a circke image" width="50px" height="50px">
+        				<h3>Congratulations! You Won!</h3>
+        				<div> with <span class="final-moves">17</span> moves and <span class="final-stars">1</span> star</div>
+        				<div>Woooooooo!</div>
       				</div>
       				<div class="modal-footer">
-       				 	<button type="button" class="btn btn-primary">Save changes</button>
-        				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       				 	<button type="button" class="btn btn-primary play-again" onclick="playAgain();">Play again!</button>
      			 	</div>
    				</div>
   			</div>

@@ -104,12 +104,15 @@ async function respondToTheClick(evt) {
         if (gameStatus.moveCounter > 10 && gameStatus.moveCounter <= 20){
             var stars = document.querySelectorAll('.fa-star');
             stars[2].classList.add('star-disabled');
+            gameStatus.starRating = 2;
         } else if (gameStatus.moveCounter > 20 && gameStatus.moveCounter <= 30){
             var stars = document.querySelectorAll('.fa-star');
             stars[1].classList.add('star-disabled');
+            gameStatus.starRating = 1;
         } else if (gameStatus.moveCounter > 30){
             var stars = document.querySelectorAll('.fa-star');
             stars[0].classList.add('star-disabled');
+            gameStatus.starRating = 0;
         }
     }
 
@@ -152,7 +155,11 @@ function checkMatching(){
 function checkGame(){
     console.log(gameStatus);
     if (gameStatus.matchedCardsCount === 16){
-        alert("Game Complete!");
+        let finalMoves = document.querySelector('.final-moves');
+        let finalStars = document.querySelector('.final-stars');
+        finalMoves.innerHTML = gameStatus.moveCounter;
+        finalStars.innerHTML = gameStatus.starRating;
+        $('#myModal').modal();
     }
 }
 
@@ -189,8 +196,15 @@ function initGame(){
         let time = document.querySelector('.timer');
         time.innerHTML = gameStatus.timer;
     }, 1000);
+
 }
 
+// let playAgain = document.querySelector('.play-again');
+// playAgain.addEventListener('click', restartGame);
+function playAgain(){
+    $('#myModal').modal('hide');
+    restartGame();
+}
 
 
 
