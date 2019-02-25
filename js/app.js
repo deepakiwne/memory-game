@@ -45,7 +45,8 @@ function addCardToDeck() {
 
 }
 
-addCardToDeck();
+// addCardToDeck();
+initGame();
 
 
 // toggle cards
@@ -98,7 +99,21 @@ async function respondToTheClick(evt) {
         //update html
         let move = document.querySelector('.moves');
         move.innerHTML = gameStatus.moveCounter;
+        
+        // update star rating
+        if (gameStatus.moveCounter > 10 && gameStatus.moveCounter <= 20){
+            var stars = document.querySelectorAll('.fa-star');
+            stars[2].classList.add('star-disabled');
+        } else if (gameStatus.moveCounter > 20 && gameStatus.moveCounter <= 30){
+            var stars = document.querySelectorAll('.fa-star');
+            stars[1].classList.add('star-disabled');
+        } else if (gameStatus.moveCounter > 30){
+            var stars = document.querySelectorAll('.fa-star');
+            stars[0].classList.add('star-disabled');
+        }
     }
+
+
 
     // check if game is over
     checkGame();
@@ -164,7 +179,17 @@ function restartGame(){
  }
 }
 
+function initGame(){
 
+    addCardToDeck()
+
+    setInterval(function(){
+
+        gameStatus.timer += 1;
+        let time = document.querySelector('.timer');
+        time.innerHTML = gameStatus.timer;
+    }, 1000);
+}
 
 
 
