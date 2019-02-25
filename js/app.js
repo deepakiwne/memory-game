@@ -45,9 +45,7 @@ function addCardToDeck() {
 
 }
 
-// addCardToDeck();
 initGame();
-
 
 // toggle cards
 function flip(card){
@@ -116,8 +114,6 @@ async function respondToTheClick(evt) {
         }
     }
 
-
-
     // check if game is over
     checkGame();
 
@@ -170,21 +166,41 @@ restart.addEventListener('click', restartGame);
 
 function restartGame(){
     
+    // face down all cards
     let cards = document.querySelectorAll('.card');
-    console.log(cards);
     cards.forEach(function(c){
         c.classList.remove('open');
         c.classList.remove('show');
         c.classList.remove('match');
     });
 
+    // reset game status object
     gameStatus = {
-    'matchedCardsCount' : 0,
-    'moveCounter'       : 0,
-    'timer'             : 0,
-    'starRating'        : 3
- }
+        'matchedCardsCount' : 0,
+        'moveCounter'       : 0,
+        'timer'             : 0,
+        'starRating'        : 3
+    }
+
+    // reset star ratings
+    resetStars();
+
+    // reset moves
+    resetMoves();
 }
+
+function resetStars(){
+    var stars = document.querySelectorAll('.fa-star');
+    stars.forEach(function(s){
+        s.classList.remove('star-disabled');
+    });
+}
+
+function resetMoves(){
+    var moves = document.querySelector('.moves');
+        moves.innerHTML = gameStatus.moveCounter;
+}
+
 
 function initGame(){
 
@@ -199,13 +215,12 @@ function initGame(){
 
 }
 
-// let playAgain = document.querySelector('.play-again');
-// playAgain.addEventListener('click', restartGame);
 function playAgain(){
+    
     $('#myModal').modal('hide');
+
     restartGame();
 }
-
 
 
 /*
