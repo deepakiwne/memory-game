@@ -64,6 +64,11 @@ function sleep(ms) {
 async function respondToTheClick(evt) {
     console.log('A card was clicked: ', evt.target);
 
+    if (!gameStatus.firstClickDone){
+        gameStatus.firstClickDone = true;
+        startTimer(); 
+    }
+
     //now changing css
     let card = evt.target;
     card.classList.add('open','show');
@@ -119,6 +124,21 @@ async function respondToTheClick(evt) {
 
 }
 
+let interval = undefined;
+
+function startTimer(){
+
+
+    console.log("i am mad");
+
+    clearInterval(interval);
+    interval = setInterval(function(){
+        gameStatus.timer += 1;
+        let time = document.querySelector('.timer');
+        time.innerHTML = gameStatus.timer;
+    }, 1000);
+}
+
 let deck = document.querySelector('.deck');
 deck.addEventListener('click', respondToTheClick);
 
@@ -143,23 +163,26 @@ function checkMatching(){
     'matchedCardsCount' : 0,
     'moveCounter'       : 0,
     'timer'             : 0,
-    'starRating'        : 3
+    'starRating'        : 3,
+    'firstClickDone'        : false 
  };
 
 // message after game completion
 
 function checkGame(){
     console.log(gameStatus);
+
     if (gameStatus.matchedCardsCount === 16){
         let finalMoves = document.querySelector('.final-moves');
         let finalStars = document.querySelector('.final-stars');
         finalMoves.innerHTML = gameStatus.moveCounter;
         finalStars.innerHTML = gameStatus.starRating;
+
         $('#myModal').modal();
     }
 }
 
-// reser  functionality
+// reset  functionality
 
 let restart = document.querySelector('.restart');
 restart.addEventListener('click', restartGame);
@@ -179,7 +202,8 @@ function restartGame(){
         'matchedCardsCount' : 0,
         'moveCounter'       : 0,
         'timer'             : 0,
-        'starRating'        : 3
+        'starRating'        : 3,
+        'firstClickDone'        : false
     }
 
     // reset star ratings
@@ -187,6 +211,16 @@ function restartGame(){
 
     // reset moves
     resetMoves();
+
+    // reset timer
+    resetTimer();
+}
+
+function resetTimer(){
+    clearInterval(interval);
+
+    let time = document.querySelector('.timer');
+    time.innerHTML = gameStatus.timer;
 }
 
 function resetStars(){
@@ -201,17 +235,9 @@ function resetMoves(){
         moves.innerHTML = gameStatus.moveCounter;
 }
 
-
 function initGame(){
 
     addCardToDeck()
-
-    setInterval(function(){
-
-        gameStatus.timer += 1;
-        let time = document.querySelector('.timer');
-        time.innerHTML = gameStatus.timer;
-    }, 1000);
 
 }
 
