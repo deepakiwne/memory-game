@@ -30,8 +30,10 @@ function shuffle(array) {
 let cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
              'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
 
+let cardId = 0;
 function generateCard(card){
-    return `<li class="card"><i class="fa ${card}"></i></li>`;
+    cardId += 1;
+    return `<li class="card" id="${cardId}"><i class="fa ${card}"></i></li>`;
 }
 
 function addCardToDeck() {
@@ -71,63 +73,80 @@ async function respondToTheClick(evt) {
 
     //now changing css
     let card = evt.target;
-    card.classList.add('open','show');
+    // await sleep(1000);
 
-    await sleep(1000);
+    // after second click check that the click in not on the same previous card which is
+    // in the 'turnedOverCards' array
 
-    // we should also check whether 2 cards matching
-    turnedOverCards.push(card);
+    let sameCardClick = false;
 
-    console.log (turnedOverCards);
-
-    // after 2 cards lets compare
-    if (turnedOverCards.length === 2){
-
-        // opened two cards. Lets check if match found and take appropriate action
-
-        if(checkMatching()){
-            turnedOverCards.forEach(function(c){
-                c.classList.add('match');
-                gameStatus.matchedCardsCount += 1;
-            }); 
-        } else {
-            turnedOverCards.forEach(function(c){
-                flip(c);
-            }); 
-        }
-
-        // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
-        turnedOverCards = [];
-        gameStatus.moveCounter += 1;
-        //update html
-        let move = document.querySelector('.moves');
-        move.innerHTML = gameStatus.moveCounter;
-        
-        // update star rating
-        if (gameStatus.moveCounter > 10 && gameStatus.moveCounter <= 20){
-            var stars = document.querySelectorAll('.fa-star');
-            stars[2].classList.add('star-disabled');
-            gameStatus.starRating = 2;
-        } else if (gameStatus.moveCounter > 20 && gameStatus.moveCounter <= 30){
-            var stars = document.querySelectorAll('.fa-star');
-            stars[1].classList.add('star-disabled');
-            gameStatus.starRating = 1;
-        } else if (gameStatus.moveCounter > 30){
-            var stars = document.querySelectorAll('.fa-star');
-            stars[0].classList.add('star-disabled');
-            gameStatus.starRating = 0;
+    if(turnedOverCards.length === 1){
+        if(turnedOverCards[0].id === card.id){
+            console.log("Same card clicked again. id = ", card.id);
+            sameCardClick = true;
+        }else{
+            console.log("Different card clicked. first card id = " + turnedOverCards[0].id + ", second card id = " + card.id);
         }
     }
 
-    // check if game is over
-    checkGame();
+    if(!sameCardClick){
+        
+        card.classList.add('open','show');
+
+        // we should also check whether 2 cards matching
+        turnedOverCards.push(card);
+
+        console.log (turnedOverCards);
+
+        // after 2 cards lets compare
+        if (turnedOverCards.length === 2){
+
+            // opened two cards. Lets check if match found and take appropriate action
+
+            if(checkMatching()){
+                turnedOverCards.forEach(function(c){
+                    c.classList.add('match');
+                    gameStatus.matchedCardsCount += 1;
+                }); 
+            } else {
+                await sleep(1000);
+                turnedOverCards.forEach(function(c){
+                    flip(c);
+                }); 
+            }
+
+            // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
+            turnedOverCards = [];
+            gameStatus.moveCounter += 1;
+            //update html
+            let move = document.querySelector('.moves');
+            move.innerHTML = gameStatus.moveCounter;
+        
+            // update star rating
+            if (gameStatus.moveCounter > 10 && gameStatus.moveCounter <= 20){
+                var stars = document.querySelectorAll('.fa-star');
+                stars[2].classList.add('star-disabled');
+                gameStatus.starRating = 2;
+            } else if (gameStatus.moveCounter > 20 && gameStatus.moveCounter <= 30){
+                var stars = document.querySelectorAll('.fa-star');
+                stars[1].classList.add('star-disabled');
+                gameStatus.starRating = 1;
+            } else if (gameStatus.moveCounter > 30){
+                var stars = document.querySelectorAll('.fa-star');
+                stars[0].classList.add('star-disabled');
+                gameStatus.starRating = 0;
+            }
+        }
+
+        // check if game is over
+        checkGame();
+    }
 
 }
 
 let interval = undefined;
 
 function startTimer(){
-
 
     console.log("i am mad");
 
