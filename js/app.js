@@ -75,15 +75,23 @@ async function respondToTheClick(evt) {
     let card = evt.target;
     // await sleep(1000);
 
-    // after second click check that the click in not on the same previous card which is
-    // in the 'turnedOverCards' array
-
+    // handle deck click
     let deckClicked = false;
 
     if(card.classList.contains("deck")){
         deckClicked = true;
         return;
     }
+
+    //handle icon click
+
+    if(card.classList.contains("fa")){
+        card = card.parentElement;
+    }
+
+
+    // after second click check that the click in not on the same previous card which is
+    // in the 'turnedOverCards' array
 
     let sameCardClick = false;
 
