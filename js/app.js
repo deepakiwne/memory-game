@@ -78,6 +78,13 @@ async function respondToTheClick(evt) {
     // after second click check that the click in not on the same previous card which is
     // in the 'turnedOverCards' array
 
+    let deckClicked = false;
+
+    if(card.classList.contains("deck")){
+        deckClicked = true;
+        return;
+    }
+
     let sameCardClick = false;
 
     if(turnedOverCards.length === 1){
