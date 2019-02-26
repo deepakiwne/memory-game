@@ -76,10 +76,8 @@ async function respondToTheClick(evt) {
     // await sleep(1000);
 
     // handle deck click
-    let deckClicked = false;
 
     if(card.classList.contains("deck")){
-        deckClicked = true;
         return;
     }
 
@@ -88,6 +86,13 @@ async function respondToTheClick(evt) {
     if(card.classList.contains("fa")){
         card = card.parentElement;
     }
+
+    // handle click on matched cards
+
+    if(card.classList.contains("match")){
+        return;
+    }
+
 
 
     // after second click check that the click in not on the same previous card which is
