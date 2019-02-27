@@ -50,7 +50,14 @@ function addCardToDeck() {
 initGame();
 
 // toggle cards
-function flip(card){
+async function flip(card){
+
+    card.classList.toggle('wobble');
+    card.classList.toggle('nomatch');
+    await sleep(900);
+    card.classList.toggle('nomatch');
+    card.classList.toggle('wobble');
+
     card.classList.toggle('open');
     card.classList.toggle('show');
 }
@@ -112,6 +119,10 @@ async function respondToTheClick(evt) {
     if(!sameCardClick){
         
         card.classList.add('open','show');
+        
+        card.classList.toggle('flip');
+        await sleep(300);
+        card.classList.toggle('flip');
 
         // we should also check whether 2 cards matching
         turnedOverCards.push(card);
@@ -124,12 +135,16 @@ async function respondToTheClick(evt) {
             // opened two cards. Lets check if match found and take appropriate action
 
             if(checkMatching()){
-                turnedOverCards.forEach(function(c){
-                    c.classList.add('match');
+                turnedOverCards.forEach(async function(c){
+
                     gameStatus.matchedCardsCount += 1;
+                    c.classList.add('match');
+                    
+                    c.classList.toggle('jello');
+                    await sleep(800);
+                    c.classList.toggle('jello');
                 }); 
             } else {
-                await sleep(1000);
                 turnedOverCards.forEach(function(c){
                     flip(c);
                 }); 
@@ -210,13 +225,12 @@ function checkMatching(){
     'moveCounter'       : 0,
     'timer'             : 0,
     'starRating'        : 3,
-    'firstClickDone'        : false 
+    'firstClickDone'    : false
  };
 
 // message after game completion
 
 function checkGame(){
-    console.log(gameStatus);
 
     if (gameStatus.matchedCardsCount === 16){
         let finalMoves = document.querySelector('.final-moves');
@@ -225,7 +239,7 @@ function checkGame(){
         finalMoves.innerHTML = gameStatus.moveCounter;
         finalStars.innerHTML = gameStatus.starRating;
         finalTime.innerHTML = formatTime(gameStatus.timer);
- 
+
         $('#myModal').modal();
     }
 }
@@ -243,6 +257,7 @@ function restartGame(){
         c.classList.remove('open');
         c.classList.remove('show');
         c.classList.remove('match');
+
     });
 
     // reset game status object
