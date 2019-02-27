@@ -238,10 +238,27 @@ function checkGame(){
         let finalTime = document.querySelector('.final-time');
         finalMoves.innerHTML = gameStatus.moveCounter;
         finalStars.innerHTML = gameStatus.starRating;
-        finalTime.innerHTML = formatTime(gameStatus.timer);
+        let t = formatTime(gameStatus.timer);
+        finalTime.innerHTML = t;
+
+        // Save score to local storage
+        writeToScoreBoard({move: gameStatus.moveCounter, time: t, star: gameStatus.starRating});
 
         $('#myModal').modal();
     }
+}
+
+let scoreBoardSize = 5;
+
+function writeToScoreBoard(score){
+    let scoreBoard = JSON.parse(window.localStorage.getItem("scoreBoard"));
+
+    if(scoreBoard.length == scoreBoardSize){
+        scoreBoard.pop();
+    }
+
+    scoreBoard.unshift(score);
+    window.localStorage.setItem("scoreBoard", JSON.stringify(scoreBoard));
 }
 
 // reset  functionality
@@ -277,6 +294,9 @@ function restartGame(){
 
     // reset timer
     resetTimer();
+
+    // score board
+    readFromScoreBoard();
 }
 
 function resetTimer(){
@@ -299,9 +319,34 @@ function resetMoves(){
 }
 
 function initGame(){
+    addCardToDeck();
+    readFromScoreBoard();
+}
 
-    addCardToDeck()
+function readFromScoreBoard(){
+    let scoreBoardData = window.localStorage.getItem("scoreBoard");
 
+    if(scoreBoardData == null || scoreBoardData == undefined){
+        window.localStorage.setItem("scoreBoard", JSON.stringify([]));
+    }
+    
+    let scores = JSON.parse(scoreBoardData);
+    let index = 0;
+    let scoreRows = sortScore(scores).map(function(score){
+        index += 1;
+        return generateScoreRow(score, index);
+    });
+
+    let scoreElement = document.querySelector('.score');
+    scoreElement.innerHTML = scoreRows.join('');
+}
+
+function sortScore(scores){
+    return scores.sort(function(a, b){return a.move-b.move});
+}
+
+function generateScoreRow(score, index){
+    return `<tr><th scope="row">${index}</th><td>${score.move}</td><td>${score.time}</td><td>${score.star}</td></tr>`;
 }
 
 function playAgain(){
@@ -310,7 +355,6 @@ function playAgain(){
 
     restartGame();
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
