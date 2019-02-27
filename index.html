@@ -23,23 +23,23 @@
         		<li><i class="fa fa-star"></i></li>
         	</ul>
         	<span class="moves">0</span> Moves
-        	<span class="timer">0</span> Seconds
+        	<span class="timer">0:00</span>
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
 
         <ul class="deck"></ul>
-        
+
 	    <!-- <button type="button" class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal">Launch demo modal</button> -->
     	<div class="modal" tabindex="-1" role="dialog" id="myModal">
   			<div class="modal-dialog" role="document">
     			<div class="modal-content">
       				<div class="modal-body">
       					<img class="rounded mx-auto d-block" src="img/tick-inside-a-circle.svg" alt="tick inside a circke image" width="50px" height="50px">
-        				<h3>Congratulations! You Won!</h3>
-        				<div> with <span class="final-moves">17</span> moves and <span class="final-stars">1</span> star</div>
-        				<div>Woooooooo!</div>
+        				<h3 class="heading">Congratulations! You Won!</h3>
+        				<div class="message">In <span class="final-time"></span> minutes, with <span class="final-moves"></span> moves and <span class="final-stars"></span> star</div>
+        				<div class="message1">Woooooooo!</div>
       				</div>
       				<div class="modal-footer">
        				 	<button type="button" class="btn btn-primary play-again" onclick="playAgain();">Play again!</button>

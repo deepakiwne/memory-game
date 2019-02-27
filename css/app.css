@@ -108,10 +108,36 @@ h1 {
     cursor: pointer;
 }
 
-.timer{
-    margin-left: 30px;
+.timer {
+    margin-left: 50px;
 }
 
-.star-disabled{
-    opacity: 0.2;
+.moves {
+    margin-left: 50px;
+}
+
+.star-disabled {
+    opacity: 0.1;
+}
+
+.rounded {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.heading {
+    text-align: center; 
+}
+
+.message {
+    text-align: center;
+}
+
+.message1 {
+    text-align: center;
+}
+
+.modal-footer {
+    display: flex; 
+    justify-content: center;;
 }

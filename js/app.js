@@ -135,7 +135,7 @@ async function respondToTheClick(evt) {
                 }); 
             }
 
-            // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cardsß
+            // after comparing the cards, lets clear the cardsArray so that we can store and compare two more cards
             turnedOverCards = [];
             gameStatus.moveCounter += 1;
             //update html
@@ -174,8 +174,15 @@ function startTimer(){
     interval = setInterval(function(){
         gameStatus.timer += 1;
         let time = document.querySelector('.timer');
-        time.innerHTML = gameStatus.timer;
+        time.innerHTML = formatTime(gameStatus.timer);
     }, 1000);
+}
+
+//convert to minutes and seconds
+function formatTime(time){
+    let seconds = time % 60;
+    let minutes = Math.floor(time / 60);
+    return minutes  + ':' + String("00" + seconds).slice(-2);
 }
 
 let deck = document.querySelector('.deck');
@@ -214,9 +221,11 @@ function checkGame(){
     if (gameStatus.matchedCardsCount === 16){
         let finalMoves = document.querySelector('.final-moves');
         let finalStars = document.querySelector('.final-stars');
+        let finalTime = document.querySelector('.final-time');
         finalMoves.innerHTML = gameStatus.moveCounter;
         finalStars.innerHTML = gameStatus.starRating;
-
+        finalTime.innerHTML = formatTime(gameStatus.timer);
+ 
         $('#myModal').modal();
     }
 }
@@ -242,7 +251,7 @@ function restartGame(){
         'moveCounter'       : 0,
         'timer'             : 0,
         'starRating'        : 3,
-        'firstClickDone'        : false
+        'firstClickDone'    : false
     }
 
     // reset star ratings
@@ -259,7 +268,7 @@ function resetTimer(){
     clearInterval(interval);
 
     let time = document.querySelector('.timer');
-    time.innerHTML = gameStatus.timer;
+    time.innerHTML = formatTime(gameStatus.timer);
 }
 
 function resetStars(){
