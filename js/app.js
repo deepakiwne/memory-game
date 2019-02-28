@@ -210,6 +210,14 @@ function restartGame() {
     resetMoves();
     resetTimer();
     readFromScoreBoard();
+    resetDeck();
+}
+// reset card deck
+function resetDeck(){
+    cardId = 0;
+    let deck = document.querySelector('.deck');
+    deck.innerHTML = '';
+    addCardToDeck();
 }
 // reset timer
 function resetTimer() {
