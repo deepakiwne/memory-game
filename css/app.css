@@ -33,6 +33,11 @@ h1 {
     font-weight: 300;
 }
 
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -72,7 +77,7 @@ h1 {
 }
 
 .deck .card.nomatch {
-    background: #E53935;
+    background: #e53935;
 }
 
 .deck .card.show {

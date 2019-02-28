@@ -33,7 +33,7 @@ function initGame() {
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length,
+    let currentIndex = array.length,
         temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -51,10 +51,10 @@ function generateCard(card) {
 }
 // Add all cards to deck
 function addCardToDeck() {
-    let deck = document.querySelector('.deck');
     let cardInDeck = shuffle(cards).map(function(card) {
         return generateCard(card);
     });
+    let deck = document.querySelector('.deck');
     deck.innerHTML = cardInDeck.join('');
 }
 // timer
@@ -83,10 +83,8 @@ async function clickHandler(evt) {
         return;
     }
     // handle click on same card twice
-    if (turnedOverCards.length === 1) {
-        if (turnedOverCards[0].id === card.id) {
-            return;
-        }
+    if (turnedOverCards.length === 1 && turnedOverCards[0].id === card.id) {
+        return;
     }
     // flip
     card.classList.add('open', 'show');
@@ -136,11 +134,7 @@ function startTimer() {
 function checkMatching() {
     let icon1Classes = turnedOverCards[0].firstChild.classList;
     let icon2Classes = turnedOverCards[1].firstChild.classList;
-    if (icon1Classes[0] == icon2Classes[0] && icon1Classes[1] == icon2Classes[1]) {
-        return true;
-    } else {
-        return false;
-    }
+    return icon1Classes[0] == icon2Classes[0] && icon1Classes[1] == icon2Classes[1]; 
 }
 //update moves and stars
 function updateScore() {
@@ -149,16 +143,14 @@ function updateScore() {
     let move = document.querySelector('.moves');
     move.innerHTML = gameStatus.moveCounter;
     // update star rating
+    let stars = document.querySelectorAll('.fa-star');
     if (gameStatus.moveCounter > 10 && gameStatus.moveCounter <= 20) {
-        var stars = document.querySelectorAll('.fa-star');
         stars[2].classList.add('star-disabled');
         gameStatus.starRating = 2;
     } else if (gameStatus.moveCounter > 20 && gameStatus.moveCounter <= 30) {
-        var stars = document.querySelectorAll('.fa-star');
         stars[1].classList.add('star-disabled');
         gameStatus.starRating = 1;
     } else if (gameStatus.moveCounter > 30) {
-        var stars = document.querySelectorAll('.fa-star');
         stars[0].classList.add('star-disabled');
         gameStatus.starRating = 0;
     }
@@ -227,14 +219,14 @@ function resetTimer() {
 }
 // reset star ratings
 function resetStars() {
-    var stars = document.querySelectorAll('.fa-star');
+    let stars = document.querySelectorAll('.fa-star');
     stars.forEach(function(s) {
         s.classList.remove('star-disabled');
     });
 }
 // reset moves
 function resetMoves() {
-    var moves = document.querySelector('.moves');
+    let moves = document.querySelector('.moves');
     moves.innerHTML = gameStatus.moveCounter;
 }
 // score board
