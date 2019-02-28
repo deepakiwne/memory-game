@@ -124,6 +124,10 @@ h1 {
     opacity: 0.1;
 }
 
+/*
+ * Styles for the Modal
+ */
+
 .rounded {
     margin-top: 50px;
     margin-bottom: 30px;
@@ -251,7 +255,6 @@ h1 {
     -webkit-animation: jello 0.9s both;
             animation: jello 0.9s both;
 }
-
 
 /* wobble */
 
